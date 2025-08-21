@@ -1,0 +1,50 @@
+{
+  "name": "saarthi-monorepo",
+  "version": "1.0.0",
+  "description": "Saarthi - Complete Transportation Solution Monorepo",
+  "private": true,
+  "workspaces": [
+    "saarthi-backend",
+    "saarthi-webapp"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd saarthi-backend && npm run dev",
+    "dev:frontend": "cd saarthi-webapp && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd saarthi-backend && npm run build",
+    "build:frontend": "cd saarthi-webapp && npm run build",
+    "install:all": "npm install && cd saarthi-backend && npm install && cd ../saarthi-webapp && npm install",
+    "clean": "npm run clean:backend && npm run clean:frontend",
+    "clean:backend": "cd saarthi-backend && rm -rf node_modules package-lock.json",
+    "clean:frontend": "cd saarthi-webapp && rm -rf node_modules package-lock.json .next",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd saarthi-backend && npm start",
+    "start:frontend": "cd saarthi-webapp && npm start",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd saarthi-backend && npm test",
+    "test:frontend": "cd saarthi-webapp && npm test",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd saarthi-backend && npm run lint",
+    "lint:frontend": "cd saarthi-webapp && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "transportation",
+    "taxi",
+    "booking",
+    "monorepo",
+    "nodejs",
+    "nextjs",
+    "express",
+    "mongodb"
+  ],
+  "author": "Saarthi Team",
+  "license": "UNLICENSED"
+}
