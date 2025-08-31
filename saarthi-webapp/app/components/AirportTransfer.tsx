@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { listRides } from '../services/apiService';
+import { useLanguage } from '../contexts/LanguageContext';
+import { airportConfig } from '../config/airports';
 
 // New fare check API endpoint from Postman collection
 const checkFareApi = async (data: any) => {
@@ -26,6 +28,8 @@ declare global {
 }
 
 const AirportTransfer: React.FC = () => {
+  const { t } = useLanguage();
+  const router = useRouter();
   const mode = process.env.NEXT_PUBLIC_MODE || 'prod';
 
   const [bookingStep, setBookingStep] = useState<'form' | 'complete'>('form');
@@ -52,7 +56,7 @@ const AirportTransfer: React.FC = () => {
   const quotes = [
     "Shoffr has partnered with non-profits to provide up to ₹15,000 per year to drivers for the education of their children.",
     "Our drivers are trained to ensure your safety and comfort during every ride.",
-    "Book with us and enjoy a hassle-free airport transfer experience."
+    t('bookWithUsMessage')
   ];
 
   const fromInputRef = useRef<HTMLInputElement>(null);
@@ -526,7 +530,7 @@ const AirportTransfer: React.FC = () => {
       {bookingStep === 'form' && (
         <div className="md:w-1/2 bg-[#1A1C21] text-white flex flex-col justify-center items-center p-6 md:p-12">
           <div className="max-w-md text-center">
-            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Did you know</h2>
+                            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">{t('didYouKnow')}</h2>
             <p className="text-gray-300 text-base md:text-lg leading-relaxed min-h-[100px] transition-opacity duration-500">
               {quotes[currentQuoteIndex]}
             </p>
@@ -548,7 +552,7 @@ const AirportTransfer: React.FC = () => {
       <div className={`${bookingStep === 'form' ? 'flex-1 md:w-1/2 p-6 md:p-12' : 'w-full  p-4 md:p-12 flex flex-col'}`}>
         {bookingStep === 'form' ? (
           <div className="w-full max-w-md mx-auto">
-            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Airport transfers</h2>
+                            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">{t('airportTransfers')}</h2>
 
             <div className="flex mb-4 md:mb-6">
               <button
@@ -557,7 +561,7 @@ const AirportTransfer: React.FC = () => {
                 }`}
                 onClick={() => setTripType('drop')}
               >
-                Drop to Airport
+                {t('dropToAirport')}
               </button>
               <button
                 className={`flex-1 px-3 py-2 md:px-4 md:py-3 rounded-r-full border border-gray-300 text-sm md:text-base ${
@@ -565,7 +569,7 @@ const AirportTransfer: React.FC = () => {
                 }`}
                 onClick={() => setTripType('pickup')}
               >
-                Pick up from Airport
+                {t('pickUpFromAirport')}
               </button>
             </div>
 
@@ -577,7 +581,7 @@ const AirportTransfer: React.FC = () => {
                     {mode === 'test' ? (
                       <input
                         type="text"
-                        placeholder="Pickup Location"
+                        placeholder={t('pickupLocation')}
                         value={locationFrom}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocationFrom(e.target.value)}
                         className="w-full border border-gray-300 rounded-md pl-10 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-600"
@@ -587,7 +591,7 @@ const AirportTransfer: React.FC = () => {
                         <input
                           ref={fromInputRef}
                           type="text"
-                          placeholder="Pickup Location"
+                          placeholder={t('pickupLocation')}
                           value={locationFrom}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFromInputChange(e.target.value)}
                           onFocus={() => setShowFromDropdown(true)}
@@ -631,11 +635,14 @@ const AirportTransfer: React.FC = () => {
                     <select
                       value={locationTo}
                       onChange={(e) => setLocationTo(e.target.value)}
-                      className="w-full border border-gray-300 rounded-md pl-10 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-600"
+                      className="w-full border border-gray-300 rounded-md pl-10 py-2 md:3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-600"
                     >
-                      <option value="">Select Drop Terminal</option>
-                      <option value="Terminal 1">Terminal 1</option>
-                      <option value="Terminal 2">Terminal 2</option>
+                      <option value="">{t('selectDropTerminal')}</option>
+                      {airportConfig.availableAirports.map((airport) => (
+                        <option key={airport} value={airport}>
+                          {airportConfig.airportDisplayNames[airport as keyof typeof airportConfig.airportDisplayNames] || airport}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </>
@@ -648,9 +655,12 @@ const AirportTransfer: React.FC = () => {
                       onChange={(e) => setLocationFrom(e.target.value)}
                       className="w-full border border-gray-300 rounded-md pl-10 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-600"
                     >
-                      <option value="">Select Pickup Terminal</option>
-                      <option value="Terminal 1">Terminal 1</option>
-                      <option value="Terminal 2">Terminal 2</option>
+                      <option value="">{t('selectPickupTerminal')}</option>
+                      {airportConfig.availableAirports.map((airport) => (
+                        <option key={airport} value={airport}>
+                          {airportConfig.airportDisplayNames[airport as keyof typeof airportConfig.airportDisplayNames] || airport}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -712,7 +722,7 @@ const AirportTransfer: React.FC = () => {
             </div>
 
             <div className="mb-4 md:mb-6">
-              <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Schedule</label>
+                              <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">{t('schedule')}</label>
               <div className="relative">
                <input
   type="datetime-local"
@@ -739,7 +749,7 @@ const AirportTransfer: React.FC = () => {
 
             <div className="bg-[#E7F5F3] p-4 rounded-md mb-4 md:mb-6">
            <div className="flex items-center mb-3 relative">
-      <span className="text-gray-700 font-medium text-sm md:text-base">Guest Info</span>
+                      <span className="text-gray-700 font-medium text-sm md:text-base">{t('guestInfo')}</span>
       <div
         className="relative ml-2"
         onMouseEnter={() => setTooltipVisible(true)}
@@ -754,7 +764,7 @@ const AirportTransfer: React.FC = () => {
       </div>
     </div>
               <div className="flex justify-between items-center mb-3">
-                <span className="text-gray-700 text-sm md:text-base">Passengers</span>
+                <span className="text-gray-700 text-sm md:text-base">{t('passengers')}</span>
                 <div className="flex items-center space-x-3">
                   <button
                     onClick={decrementPassengers}
@@ -772,7 +782,7 @@ const AirportTransfer: React.FC = () => {
                 </div>
               </div>
               <div className="flex justify-between items-center mb-3">
-                <span className="text-gray-700 text-sm md:text-base">Suitcase</span>
+                <span className="text-gray-700 text-sm md:text-base">{t('suitcase')}</span>
                 <div className="flex items-center space-x-3">
                   <button
                     onClick={decrementSuitcases}
@@ -822,7 +832,7 @@ const AirportTransfer: React.FC = () => {
                   Loading...
                 </span>
               ) : (
-                'Check Fare'
+                t('checkFare')
               )}
             </button>
           </div>
@@ -1047,7 +1057,7 @@ const AirportTransfer: React.FC = () => {
       </div>
     )}
   </div>
-  );
-};
+    );
+  };
 
 export default AirportTransfer;

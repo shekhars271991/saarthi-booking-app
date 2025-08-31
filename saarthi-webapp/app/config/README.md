@@ -1,82 +1,52 @@
-# Cities and Languages Configuration
+# Configuration Guide
 
-This configuration system allows you to easily manage which cities and languages are available in the application.
+This directory contains configuration files for the Saarthi application.
 
-## Configuration File: `cities.ts`
+## Cities Configuration (`cities.ts`)
 
-The main configuration is located in `app/config/cities.ts`. This file controls:
+Controls which cities and languages are available in the application.
 
-- Available cities
-- Available languages  
-- City-to-language mappings
-- Display names for cities and languages
-- Default language
+### Environment Variables:
+- `NEXT_PUBLIC_AVAILABLE_CITIES`: Comma-separated list of available cities
+- `NEXT_PUBLIC_AVAILABLE_LANGUAGES`: Comma-separated list of available languages
+- `NEXT_PUBLIC_DEFAULT_LANGUAGE`: Default language for the application
 
-## How to Modify Available Cities and Languages
-
-### To Add a New City:
-
-1. Add the city code to `availableCities` array
-2. Add the city display name to `cityDisplayNames`
-3. Add the city-to-language mapping in `cityLanguageMapping`
-
-Example:
-```typescript
-availableCities: ['bihar', 'mumbai'],
-cityDisplayNames: {
-  'bihar': 'Bihar',
-  'mumbai': 'Mumbai',
-},
-cityLanguageMapping: {
-  'bihar': 'hi',
-  'mumbai': 'en',
-},
-```
-
-### To Add a New Language:
-
-1. Add the language code to `availableLanguages` array
-2. Add the language display name to `languageDisplayNames`
-3. Update the translations file (`app/translations/index.ts`) to include the new language
-4. Update the Language type in the translations file
-
-### To Remove a City or Language:
-
-1. Remove from the respective arrays/objects
-2. Update any related translations
-3. Ensure the city/language is not referenced elsewhere in the code
-
-## Current Configuration
-
-- **Available Cities**: Bihar
-- **Available Languages**: Hindi (hi), English (en)
-- **Default Language**: Hindi (hi)
-- **City Language Mapping**: Bihar → Hindi
-
-## Environment-Based Configuration
-
-To make this configuration environment-based, you can:
-
-1. Create environment variables in `.env.local`:
-```
-NEXT_PUBLIC_AVAILABLE_CITIES=bihar,mumbai
-NEXT_PUBLIC_AVAILABLE_LANGUAGES=hi,en,gu
+### Example:
+```bash
+NEXT_PUBLIC_AVAILABLE_CITIES=bihar,delhi,mumbai
+NEXT_PUBLIC_AVAILABLE_LANGUAGES=hi,en,kn
 NEXT_PUBLIC_DEFAULT_LANGUAGE=hi
 ```
 
-2. Modify the config file to read from environment variables:
-```typescript
-export const cityConfig = {
-  availableCities: process.env.NEXT_PUBLIC_AVAILABLE_CITIES?.split(',') || ['bihar'],
-  availableLanguages: (process.env.NEXT_PUBLIC_AVAILABLE_LANGUAGES?.split(',') as AvailableLanguage[]) || ['hi', 'en'],
-  defaultLanguage: (process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE as AvailableLanguage) || 'hi',
-  // ... rest of config
-};
+## Airports Configuration (`airports.ts`)
+
+Controls which airports are available for airport transfer bookings.
+
+### Environment Variables:
+- `NEXT_PUBLIC_AVAILABLE_AIRPORTS`: Comma-separated list of available airports
+- `NEXT_PUBLIC_DEFAULT_AIRPORT`: Default airport selection
+
+### Example:
+```bash
+NEXT_PUBLIC_AVAILABLE_AIRPORTS=Jay Prakash Narayan Airport (Patna),Gaya International Airport (Gaya),Darbhanga Airport (Darbhanga),Muzaffarpur Airport (Muzaffarpur)
+NEXT_PUBLIC_DEFAULT_AIRPORT=Jay Prakash Narayan Airport (Patna)
 ```
 
-## Notes
+### Default Airports:
+- Jay Prakash Narayan Airport (Patna)
+- Gaya International Airport (Gaya)
+- Darbhanga Airport (Darbhanga)
+- Muzaffarpur Airport (Muzaffarpur)
 
-- The configuration is currently hardcoded but can easily be made environment-based
-- All language and city codes should match the keys used in the translations file
-- The system automatically filters available options based on this configuration
-- City-based language switching respects manual language preferences unless forced
+## How to Use
+
+1. **Create a `.env.local` file** in your project root (this file is gitignored)
+2. **Add the environment variables** you want to override
+3. **Restart your development server** for changes to take effect
+
+## Benefits
+
+- **Environment-based configuration**: Different airports for different environments
+- **Easy maintenance**: Centralized configuration management
+- **Type safety**: Full TypeScript support with proper typing
+- **Flexibility**: Can be overridden per environment without code changes

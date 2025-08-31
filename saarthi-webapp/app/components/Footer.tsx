@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Mail, MessageCircle, Linkedin } from 'lucide-react';
+import { Linkedin, Instagram, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Footer = () => {
@@ -75,22 +75,31 @@ const Footer = () => {
             </h3>
             <div className="flex justify-center md:justify-start space-x-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/company/saarthiev-mobility/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <MessageCircle className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10  rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
+                aria-label="Visit SaarthiEV Mobility on LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.instagram.com/saarthievmobility/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
+                aria-label="Follow SaarthiEV Mobility on Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://wa.me/917661566710"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
+                aria-label="Chat with SaarthiEV Mobility on WhatsApp"
+              >
+                <MessageCircle className="w-5 h-5" />
               </a>
             </div>
           </div>
