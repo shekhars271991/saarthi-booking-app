@@ -13,11 +13,19 @@ export default function Homepage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-cover bg-center bg-no-repeat overflow-hidden" style={{ backgroundImage: 'url(/bodh-gaya.webp)' }}>
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+      <section className="relative bg-cover bg-top bg-no-repeat overflow-visible h-screen" style={{ 
+        backgroundImage: 'url(/bodh-gaya3.jpeg)',
+        backgroundPosition: 'center top',
+        backgroundSize: 'cover'
+      }}>
+        {/* Content wrapper to contain all elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Responsive background adjustments */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-8">
@@ -86,8 +94,7 @@ export default function Homepage() {
               </div>
             </div>
 
-            {/* Right Content - Car Image */}
-            <div className="relative ml-24 lg:ml-48">
+            {/* <div className="relative ml-24 lg:ml-48">
               <div className="relative z-10">
                 <Image
                   src="/hro.png"
@@ -97,11 +104,11 @@ export default function Homepage() {
                   className="rounded-2xl "
                 />
               </div>
-              {/* Background decoration */}
               <div className="absolute -top-6 -right-6 w-72 h-72 bg-teal-100 rounded-full opacity-20 -z-10"></div>
               <div className="absolute -bottom-6 -left-6 w-72 h-72 bg-orange-100 rounded-full opacity-20 -z-10"></div>
-            </div>
+            </div> */}
           </div>
+        </div>
         </div>
       </section>
 

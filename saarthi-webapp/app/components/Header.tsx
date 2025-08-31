@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp, Menu, X, User, Home, Globe, MapPin } from 'luci
 import { useRouter } from 'next/navigation';
 import ProfileInfo from './ProfileInfo';
 import { useLanguage } from '../contexts/LanguageContext';
+import { cityConfig } from '../config/cities';
 import toast from 'react-hot-toast';
 
 
@@ -15,8 +16,8 @@ const Header = () => {
   const [user, setUser] = useState<any>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const [selectedCity, setSelectedCity] = useState('bangalore'); // Default to Bangalore
-  const { language, setLanguage, setLanguageByCity, t } = useLanguage();
+  const [selectedCity, setSelectedCity] = useState(cityConfig.availableCities[0]); // Default to first available city
+  const { language, setLanguage, setLanguageByCity, reloadLanguage, t } = useLanguage();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -31,14 +32,44 @@ const Header = () => {
       
       // Load city preference from localStorage
       const savedCity = localStorage.getItem('selectedCity');
-      if (savedCity && (savedCity === 'bangalore' || savedCity === 'bihar')) {
+      if (savedCity && cityConfig.availableCities.includes(savedCity)) {
         setSelectedCity(savedCity);
         
-        // Set appropriate language based on saved city
-        setLanguageByCity(savedCity);
+        // Only set city-based language if no manual language preference exists
+        const savedLanguage = localStorage.getItem('language');
+        if (!savedLanguage) {
+          setLanguageByCity(savedCity);
+        } else {
+          // If language preference exists, respect it and don't override
+          reloadLanguage();
+        }
+      } else {
+        // If no city is saved, reload the language from localStorage
+        reloadLanguage();
       }
     }
-  }, []);
+
+    // Handle language persistence on page focus/navigation
+    const handleFocus = () => {
+      reloadLanguage();
+    };
+
+    window.addEventListener('focus', handleFocus);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        reloadLanguage();
+      }
+    });
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      document.removeEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          reloadLanguage();
+        }
+      });
+    };
+  }, [reloadLanguage, setLanguageByCity]);
 
   const handleLanguageChange = (newLanguage: string) => {
     setLanguage(newLanguage as 'hi' | 'en');
@@ -53,10 +84,9 @@ const Header = () => {
     setLanguageByCity(newCity);
     
     // Show toast notification for language change
-    if (newCity === 'bangalore' && previousLanguage !== 'kn') {
-      toast.success('Language switched to Kannada for Bangalore');
-    } else if (newCity === 'bihar' && previousLanguage !== 'hi') {
-      toast.success('Language switched to Hindi for Bihar');
+    const cityLanguage = cityConfig.cityLanguageMapping[newCity as keyof typeof cityConfig.cityLanguageMapping];
+    if (cityLanguage && previousLanguage !== cityLanguage) {
+      toast.success(`Language switched to ${cityConfig.languageDisplayNames[cityLanguage]} for ${cityConfig.cityDisplayNames[newCity]}`);
     }
   };
 
@@ -133,9 +163,11 @@ const Header = () => {
                       onChange={(e) => handleLanguageChange(e.target.value)}
                       className="appearance-none bg-transparent border-none text-sm font-medium text-gray-700 focus:outline-none cursor-pointer"
                     >
-                      <option value="hi">हिंदी</option>
-                      <option value="kn">ಕನ್ನಡ</option>
-                      <option value="en">English</option>
+                      {cityConfig.availableLanguages.map(lang => (
+                        <option key={lang} value={lang}>
+                          {cityConfig.languageDisplayNames[lang]}
+                        </option>
+                      ))}
                     </select>
                     <ChevronDown className="w-4 h-4 text-gray-400" />
                   </div>
@@ -152,8 +184,11 @@ const Header = () => {
                       onChange={(e) => handleCityChange(e.target.value)}
                       className="appearance-none bg-transparent border-none text-sm font-medium text-gray-700 focus:outline-none cursor-pointer"
                     >
-                      <option value="bangalore">{t('bangalore')}</option>
-                      <option value="bihar">{t('bihar')}</option>
+                      {cityConfig.availableCities.map(city => (
+                        <option key={city} value={city}>
+                          {cityConfig.cityDisplayNames[city]}
+                        </option>
+                      ))}
                     </select>
                     <ChevronDown className="w-4 h-4 text-gray-400" />
                   </div>
@@ -226,9 +261,11 @@ const Header = () => {
               onChange={(e) => handleLanguageChange(e.target.value)}
               className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             >
-              <option value="hi">हिंदी</option>
-              <option value="kn">ಕನ್ನಡ</option>
-              <option value="en">English</option>
+              {cityConfig.availableLanguages.map(lang => (
+                <option key={lang} value={lang}>
+                  {cityConfig.languageDisplayNames[lang]}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -243,8 +280,11 @@ const Header = () => {
               onChange={(e) => handleCityChange(e.target.value)}
               className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             >
-              <option value="bangalore">{t('bangalore')}</option>
-              <option value="bihar">{t('bihar')}</option>
+              {cityConfig.availableCities.map(city => (
+                <option key={city} value={city}>
+                  {cityConfig.cityDisplayNames[city]}
+                </option>
+              ))}
             </select>
           </div>
           
