@@ -12,6 +12,7 @@ export const translations = {
     promotionalBanner: 'पहली बुकिंग पर 50% छूट - कूपन कोड FIRSTRIDE का उपयोग करें',
     mainHeading: 'पेशेवर चालक,',
     mainHeadingHighlight: 'विश्वसनीय सेवा।',
+    subHeading: 'प्री-बुक्ड सफ़र।',
     description: 'सुरक्षित, समय पर और भरोसेमंद चालक सेवा।',
     bookNow: 'बुक करें',
     airportTransfer: 'हवाई अड्डा स्थानांतरण',
@@ -70,6 +71,7 @@ export const translations = {
     promotionalBanner: 'ಮೊದಲ ಬುಕಿಂಗ್‌ನಲ್ಲಿ 50% ರಿಯಾಯಿತಿ - ಕೂಪನ್ ಕೋಡ್ FIRSTRIDE ಬಳಸಿ',
     mainHeading: 'ವೃತ್ತಿಪರ ಚಾಲಕರು,',
     mainHeadingHighlight: 'ವಿಶ್ವಾಸಾರ್ಹ ಸೇವೆ.',
+    subHeading: 'ಮುಂಚೆ ನಿಗದಿತ ಸವಾರಿಗಳು.',
     description: 'ಸುರಕ್ಷಿತ, ಸಮಯಕ್ಕೆ, ಮತ್ತು ಅಸಾಧಾರಣ ಚಾಲಕ ಸೇವೆ.',
     bookNow: 'ಈಗ ಬುಕ್ ಮಾಡಿ',
     airportTransfer: 'ವಿಮಾನ ನಿಲ್ದಾಣ ವರ್ಗಾವಣೆ',
@@ -126,8 +128,9 @@ export const translations = {
     
     // Hero Section
     promotionalBanner: '50% off on 1st booking - Use coupon code FIRSTRIDE',
-    mainHeading: 'Professional Chauffeurs,',
+    mainHeading: 'Professional drivers,',
     mainHeadingHighlight: 'Dependable Service.',
+    subHeading: 'Pre-scheduled Rides.',
     description: 'Safe, timely, and reliable chauffeur service.',
     bookNow: 'Book Now',
     airportTransfer: 'Airport transfer',

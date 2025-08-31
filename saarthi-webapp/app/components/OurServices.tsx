@@ -6,19 +6,19 @@ import { Plane } from 'lucide-react';
 const services = [
   {
     title: 'Effortless Airport Journeys',
-    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional chauffeurs.',
+    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional drivers.',
   },
   {
     title: 'Effortless Airport Journeys',
-    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional chauffeurs.',
+    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional drivers.',
   },
   {
     title: 'Effortless Airport Journeys',
-    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional chauffeurs.',
+    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional drivers.',
   },
   {
     title: 'Effortless Airport Journeys',
-    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional chauffeurs.',
+    description: 'Relax or work while we handle your airport commute. Punctual pickups and drops with professional drivers.',
   },
 ];
 

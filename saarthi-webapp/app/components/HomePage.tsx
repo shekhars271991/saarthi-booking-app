@@ -25,71 +25,83 @@ export default function Homepage() {
           {/* Dark overlay for better text readability */}
           <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-start pt-32 sm:pt-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left Content */}
-            <div className="space-y-8">
+            <div className="space-y-3">
               {/* Promotional Banner */}
-              <div className="inline-block bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+              {/* <div className="inline-block bg-orange-500 text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-lg">
                 {t('promotionalBanner')}
-              </div>
+              </div> */}
 
               {/* Main Heading */}
-              <div className="space-y-4">
-                <h1 className="text-2xl lg:text-5xl font-bold text-white leading-tight">
-                  {t('mainHeading')}{' '}
-                  <span className="text-yellow-300">{t('mainHeadingHighlight')}</span>
+              <div className="space-y-1">
+                <h1 className="text-xl lg:text-4xl font-bold text-white leading-tight">
+                  {t('mainHeading')}
                 </h1>
-                <p className="text-lg text-gray-100 max-w-lg">
+                <h2 className="text-xl lg:text-4xl font-bold text-white leading-tight">
+                  {t('mainHeadingHighlight')}
+                </h2>
+                <h3 className="text-xl lg:text-4xl font-bold text-white leading-tight">
+                  {t('subHeading')}
+                </h3>
+                {/* <p className="text-base text-gray-100 max-w-lg">
                   {t('description')}
-                </p>
+                </p> */}
               </div>
 
               {/* CTA Buttons */}
-              <div className="space-y-4  text-center lg:text-left">
-                <div className="text-white py-3 rounded-full text-[22px] font-medium inline-flex items-center space-x-2 transition-colors">
-                  <span>{t('bookNow')}</span>
-                  <Sparkles className="w-5 h-5" />
+              <div className="space-y-1 text-center lg:text-left">
+                <div className="text-white py-1 rounded-full text-[16px] font-medium inline-flex items-center space-x-2 transition-colors">
+                  <span className="animate-[blink_1s_ease-in-out_infinite]">{t('bookNow')}</span>
+                  <Sparkles className="w-3 h-3 animate-[blink_1s_ease-in-out_infinite]" />
                 </div>
 
                 {/* Service Buttons */}
-<div className="flex flex-wrap gap-3 pt-4 justify-center lg:justify-start">
-  <a 
-    href="/airport-transfer" 
-    className={`px-8 py-3 rounded-full text-[16px] sm:text-[16px] lg:text-[22px] font-medium inline-flex items-center space-x-2 transition-colors ${
-      process.env.NEXT_PUBLIC_AIRPORT_TRANSFER_ENABLED === 'true' 
-        ? 'bg-[#016B5D] hover:bg-teal-700 text-white' 
-        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-    }`}
-    {...(process.env.NEXT_PUBLIC_AIRPORT_TRANSFER_ENABLED !== 'true' && { disabled: true })}
-  >
-    <MapPin className="w-6 h-6" />
-    <span>{t('airportTransfer')}</span>
-  </a>
-  <a 
-    href="/hourly-rental" 
-    className={`px-8 py-3 rounded-full text-[16px] sm:text-[16px] lg:text-[22px] font-medium inline-flex items-center space-x-2 transition-colors ${
-      process.env.NEXT_PUBLIC_HOURLY_RENTAL_ENABLED === 'true' 
-        ? 'bg-[#016B5D] hover:bg-teal-700 text-white' 
-        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-    }`}
-    {...(process.env.NEXT_PUBLIC_HOURLY_RENTAL_ENABLED !== 'true' && { disabled: true })}
-  >
-    <Clock className="w-6 h-6" />
-    <span>{t('hourlyRental')}</span>
-  </a>
-  <a 
-    href="/outstation" 
-    className={`px-8 py-3 rounded-full text-[16px] sm:text-[16px] lg:text-[22px] font-medium inline-flex items-center space-x-2 transition-colors ${
-      process.env.NEXT_PUBLIC_OUTSTATION_ENABLED === 'true' 
-        ? 'bg-[#016B5D] hover:bg-teal-700 text-white' 
-        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-    }`}
-    {...(process.env.NEXT_PUBLIC_OUTSTATION_ENABLED !== 'true' && { disabled: true })}
-  >
-    <Car className="w-6 h-6" />
-    <span>{t('outstationTrip')}</span>
-  </a>
+<div className="flex flex-col gap-2 pt-1 justify-center lg:justify-start">
+  {/* First Row - Airport Transfer and Hourly Rental */}
+  <div className="flex gap-2">
+    <a 
+      href="/airport-transfer" 
+      className={`px-6 py-3 rounded-full text-[14px] sm:text-[14px] lg:text-[18px] font-medium inline-flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 ${
+        process.env.NEXT_PUBLIC_AIRPORT_TRANSFER_ENABLED === 'true' 
+          ? 'bg-[#016B5D] hover:bg-teal-700 text-white' 
+          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+      }`}
+      {...(process.env.NEXT_PUBLIC_AIRPORT_TRANSFER_ENABLED !== 'true' && { disabled: true })}
+    >
+      <MapPin className="w-5 h-5" />
+      <span>{t('airportTransfer')}</span>
+    </a>
+    <a 
+      href="/hourly-rental" 
+      className={`px-6 py-3 rounded-full text-[14px] sm:text-[14px] lg:text-[18px] font-medium inline-flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 ${
+        process.env.NEXT_PUBLIC_HOURLY_RENTAL_ENABLED === 'true' 
+          ? 'bg-[#016B5D] hover:bg-teal-700 text-white' 
+          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+      }`}
+      {...(process.env.NEXT_PUBLIC_HOURLY_RENTAL_ENABLED !== 'true' && { disabled: true })}
+    >
+      <Clock className="w-5 h-5" />
+      <span>{t('hourlyRental')}</span>
+    </a>
+  </div>
+  
+  {/* Second Row - Outstation Trip */}
+  <div className="flex justify-start">
+    <a 
+      href="/outstation" 
+      className={`px-6 py-3 rounded-full text-[14px] sm:text-[14px] lg:text-[18px] font-medium inline-flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 ${
+        process.env.NEXT_PUBLIC_OUTSTATION_ENABLED === 'true' 
+          ? 'bg-[#016B5D] hover:bg-teal-700 text-white' 
+          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+      }`}
+      {...(process.env.NEXT_PUBLIC_OUTSTATION_ENABLED !== 'true' && { disabled: true })}
+    >
+      <Car className="w-5 h-5" />
+      <span>{t('outstationTrip')}</span>
+    </a>
+  </div>
 </div>
               </div>
             </div>
