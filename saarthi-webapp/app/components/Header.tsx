@@ -135,7 +135,7 @@ const Header = () => {
                     <span>{t('home')}</span>
                   </a>
                 </div>
-                <div className="relative group">
+                {/* <div className="relative group">
                  
                   <a
                     href="/our-services"
@@ -143,7 +143,7 @@ const Header = () => {
                   >
                     <span>{t('services')}</span>
                   </a>
-                </div>
+                </div> */}
                 <a href="/faq" className="text-gray-700 hover:text-teal-600 transition-colors font-medium">
                   {t('faq')}
                 </a>

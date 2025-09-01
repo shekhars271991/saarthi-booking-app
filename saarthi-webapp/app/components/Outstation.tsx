@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, MapPin, Info, Plane, ArrowLeft } from 'lucide-react';
 import { calculateFareOutstation, confirmBooking } from '../services/apiService';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // New fare check API endpoint from Postman collection
 import axios from 'axios';
@@ -25,6 +26,7 @@ declare global {
 }
 
 const Outstation: React.FC = () => {
+  const { t } = useLanguage();
   const mode = process.env.NEXT_PUBLIC_MODE || 'prod';
 
 
@@ -54,7 +56,7 @@ const Outstation: React.FC = () => {
   const quotes = [
     "Shoffr has partnered with non-profits to provide up to ₹15,000 per year to drivers for the education of their children.",
     "Our drivers are trained to ensure your safety and comfort during every ride.",
-    "Book with us and enjoy a hassle-free airport transfer experience."
+    t('bookWithUsMessage')
   ];
 
   const fromInputRef = useRef<HTMLInputElement>(null);
@@ -469,7 +471,7 @@ useEffect(() => {
       {bookingStep === 'form' && (
         <div className="md:w-1/2 bg-[#1A1C21] text-white flex flex-col justify-center items-center p-6 md:p-12">
           <div className="max-w-md text-center">
-            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Did you know</h2>
+            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">{t('didYouKnow')}</h2>
             <p className="text-gray-300 text-base md:text-lg leading-relaxed min-h-[100px] transition-opacity duration-500">
               {quotes[currentQuoteIndex]}
             </p>
@@ -491,19 +493,19 @@ useEffect(() => {
       <div className={`${bookingStep === 'form' ? 'flex-1 md:w-1/2 p-6 md:p-12' : 'w-full  p-4 md:p-12 flex flex-col'}`}>
         {bookingStep === 'form' ? (
           <div className="w-full max-w-md mx-auto">
-            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Outstation</h2>
+            <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">{t('outstation')}</h2>
 <div className="flex mb-4 md:mb-6">
           <button
             className={`px-4 py-2 rounded-l-full border border-gray-300 ${tripType === 'oneway' ? 'bg-orange-200' : 'bg-white'}`}
             onClick={() => setTripType('oneway')}
           >
-            One way
+                            {t('oneWay')}
           </button>
           <button
             className={`px-4 py-2 rounded-r-full border border-gray-300 ${tripType === 'roundtrip' ? 'bg-orange-200' : 'bg-white'}`}
             onClick={() => setTripType('roundtrip')}
           >
-            Round trip
+                            {t('roundTrip')}
           </button>
         </div>
            
@@ -514,19 +516,19 @@ useEffect(() => {
                 {mode === 'test' ? (
                   <input
                     type="text"
-                    placeholder="Location"
-                    value={locationFrom}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocationFrom(e.target.value)}
-                    className="w-full border border-gray-300 rounded-md pl-10 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-600"
+                                          placeholder={t('location')}
+                      value={locationFrom}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocationFrom(e.target.value)}
+                      className="w-full border border-gray-300 rounded-md pl-10 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-600"
                   />
                 ) : (
                   <>
                     <input
                       ref={fromInputRef}
                       type="text"
-                      placeholder="Location"
-                      value={locationFrom}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFromInputChange(e.target.value)}
+                                              placeholder={t('location')}
+                        value={locationFrom}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFromInputChange(e.target.value)}
                       onFocus={() => setShowFromDropdown(true)}
                       onBlur={() => setTimeout(() => setShowFromDropdown(false), 200)}
                       className="w-full border border-gray-300 rounded-md pl-10 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-teal-600"
@@ -540,7 +542,7 @@ useEffect(() => {
                           <svg className="w-4 h-4 mr-2 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C8.13 2 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                           </svg>
-                          Select location on map
+                          {t('selectLocationOnMap')}
                         </div>
                         {fromSuggestions.map((suggestion, index) => (
                           <div
@@ -568,7 +570,7 @@ useEffect(() => {
                 <input
                   ref={toInputRef}
                   type="text"
-                  placeholder="Location"
+                  placeholder={t('location')}
                   value={locationTo}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleToInputChange(e.target.value)}
                   onFocus={() => setShowToDropdown(true)}
@@ -584,7 +586,7 @@ useEffect(() => {
                       <svg className="w-4 h-4 mr-2 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C8.13 2 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                       </svg>
-                      Select location on map
+                      {t('selectLocationOnMap')}
                     </div>
                     {toSuggestions.map((suggestion, index) => (
                       <div
@@ -607,7 +609,7 @@ useEffect(() => {
             </div>
 
             <div className="mb-4 md:mb-6">
-              <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Schedule</label>
+              <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">{t('schedule')}</label>
               <div className="relative">
 <input
   type="datetime-local"
@@ -632,7 +634,7 @@ useEffect(() => {
 
             <div className="bg-[#E7F5F3] p-4 rounded-md mb-4 md:mb-6">
             <div className="flex items-center mb-3 relative">
-      <span className="text-gray-700 font-medium text-sm md:text-base">Guest Info</span>
+                      <span className="text-gray-700 font-medium text-sm md:text-base">{t('guestInfo')}</span>
       <div
         className="relative ml-2"
         onMouseEnter={() => setTooltipVisible(true)}
@@ -647,7 +649,7 @@ useEffect(() => {
       </div>
     </div>
               <div className="flex justify-between items-center mb-3">
-                <span className="text-gray-700 text-sm md:text-base">Passengers</span>
+                <span className="text-gray-700 text-sm md:text-base">{t('passengers')}</span>
                 <div className="flex items-center space-x-3">
                   <button
                     onClick={decrementPassengers}
@@ -665,7 +667,7 @@ useEffect(() => {
                 </div>
               </div>
               <div className="flex justify-between items-center mb-3">
-                <span className="text-gray-700 text-sm md:text-base">Suitcase</span>
+                <span className="text-gray-700 text-sm md:text-base">{t('suitcase')}</span>
                 <div className="flex items-center space-x-3">
                   <button
                     onClick={decrementSuitcases}
@@ -715,7 +717,7 @@ useEffect(() => {
                   Loading...
                 </span>
               ) : (
-                'Check Fare'
+                t('checkFare')
               )}
             </button>
           </div>

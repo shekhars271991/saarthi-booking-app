@@ -64,6 +64,16 @@ export const translations = {
     passengers: 'यात्री',
     suitcase: 'सूटकेस',
     checkFare: 'किराया जांचें',
+    
+    // Hourly Rental Page
+    selectHours: 'घंटे चुनें',
+    location: 'स्थान',
+    selectLocationOnMap: 'मानचित्र पर स्थान चुनें',
+    
+    // Outstation Page
+    outstation: 'आउटस्टेशन',
+    oneWay: 'एक तरफ़ा',
+    roundTrip: 'राउंड ट्रिप',
     aboutUs: 'हमारे बारे में',
     privacyAndPolicy: 'गोपनीयता और नीति',
     cancellationRefund: 'रद्दीकरण और धनवापसी',
@@ -137,6 +147,16 @@ export const translations = {
     passengers: 'ಪ್ರಯಾಣಿಕರು',
     suitcase: 'ಸೂಟ್‌ಕೇಸ್',
     checkFare: 'ಅಡ್ಡಿ ಪರಿಶೀಲಿಸಿ',
+    
+    // Hourly Rental Page
+    selectHours: 'ಗಂಟೆಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ',
+    location: 'ಸ್ಥಳ',
+    selectLocationOnMap: 'ನಕ್ಷೆಯಲ್ಲಿ ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ',
+    
+    // Outstation Page
+    outstation: 'ಹೊರಗಿನ ಪ್ರಯಾಣ',
+    oneWay: 'ಏಕಮಾರ್ಗ',
+    roundTrip: 'ರೌಂಡ್ ಟ್ರಿಪ್',
     aboutUs: 'ನಮ್ಮ ಬಗ್ಗೆ',
     privacyAndPolicy: 'ಗೌಪ್ಯತೆ ಮತ್ತು ನೀತಿ',
     cancellationRefund: 'ರದ್ದುಗೊಳಿಸುವಿಕೆ ಮತ್ತು ಮರುಪಾವತಿ',
@@ -210,6 +230,16 @@ export const translations = {
     passengers: 'Passengers',
     suitcase: 'Suitcase',
     checkFare: 'Check Fare',
+    
+    // Hourly Rental Page
+    selectHours: 'Select hours',
+    location: 'Location',
+    selectLocationOnMap: 'Select location on map',
+    
+    // Outstation Page
+    outstation: 'Outstation',
+    oneWay: 'One way',
+    roundTrip: 'Round trip',
     aboutUs: 'About us',
     privacyAndPolicy: 'Privacy and policy',
     cancellationRefund: 'Cancellation & refund',
